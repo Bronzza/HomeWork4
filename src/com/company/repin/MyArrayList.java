@@ -4,9 +4,10 @@ package com.company.repin;
 public class MyArrayList<T> implements MyList<T> {
     private Object[] array;
     private int counter = 0;
+    private final int DEFAULT_CAPACITY = 0;
 
     public MyArrayList() {
-        array = new Object[0];
+        array = new Object[DEFAULT_CAPACITY];
     }
 
 
@@ -27,16 +28,13 @@ public class MyArrayList<T> implements MyList<T> {
         }
         array[counter] = t;
         counter++;
-        if (counter == array.length) {
-            expandArray(array);
-        }
+        expandArray();
     }
 
 
     public void add(int index, T t) {
         if (index < 0 || index > counter) {
-            System.out.println("Enter positive number below " + (counter - 1));
-            return;
+            throw new IndexOutOfBoundsException();
         }
         if (index == counter) {
             array[index] = t;
@@ -49,16 +47,14 @@ public class MyArrayList<T> implements MyList<T> {
             array = temp;
             counter++;
         }
-        if (counter == array.length) {
-            expandArray(array);
-        }
+        expandArray();
+
     }
 
     @Override
     public void remove(int index) {
         if (index > counter - 1 || index < 0) {
-            System.out.println("Enter positive number below " + (counter - 1));
-            return;
+            throw new IndexOutOfBoundsException();
         }
         if (index == counter - 1) {
             array[index] = null;
@@ -93,10 +89,12 @@ public class MyArrayList<T> implements MyList<T> {
         return sb.toString();
     }
 
-    private void expandArray(Object[] arrayToExpand) {
-        Object[] temp = new Object[(int) (arrayToExpand.length * 1.5)];
-        System.arraycopy(arrayToExpand, 0, temp, 0, arrayToExpand.length);
-        arrayToExpand = temp;
+    private void expandArray() {
+        if (counter == array.length) {
+            Object[] temp = new Object[(int) (array.length * 1.5)];
+            System.arraycopy(array, 0, temp, 0, array.length);
+            array = temp;
+        }
     }
 
 }

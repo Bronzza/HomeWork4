@@ -26,7 +26,11 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public T get(int i) {
-        return findElement(i).value;
+        if (checkIndex(i)) {
+            return findElement(i).value;
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
@@ -67,10 +71,8 @@ public class MyLinkedList<T> implements MyList<T> {
                 temp.next = createdNode;
                 size++;
             }
-        } else
-
-        {
-            System.out.println("Input positive number below " + size);
+        } else {
+            throw new IndexOutOfBoundsException();
         }
 
     }
@@ -131,8 +133,7 @@ public class MyLinkedList<T> implements MyList<T> {
             }
             return temp;
         } else {
-            System.out.println("Input positive number below " + size);
-            return null;
+            throw new IndexOutOfBoundsException();
         }
     }
 
@@ -155,5 +156,6 @@ public class MyLinkedList<T> implements MyList<T> {
             return sb.toString();
         }
     }
+
 
 }

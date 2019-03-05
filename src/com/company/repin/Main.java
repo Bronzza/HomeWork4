@@ -15,6 +15,7 @@ public class Main {
         firstList.add("Galya");
         System.out.println(firstList);
         System.out.println(firstList.size());
+
     }
 
 }
