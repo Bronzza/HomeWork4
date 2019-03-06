@@ -4,7 +4,7 @@ package com.company.repin;
 public class MyArrayList<T> implements MyList<T> {
     private Object[] array;
     private int counter = 0;
-    private final int DEFAULT_CAPACITY = 0;
+    private final int DEFAULT_CAPACITY = 10;
 
     public MyArrayList() {
         array = new Object[DEFAULT_CAPACITY];
@@ -28,7 +28,9 @@ public class MyArrayList<T> implements MyList<T> {
         }
         array[counter] = t;
         counter++;
-        expandArray();
+        if (checkIsExpand()) {
+            expandArray();
+        }
     }
 
 
@@ -47,7 +49,9 @@ public class MyArrayList<T> implements MyList<T> {
             array = temp;
             counter++;
         }
-        expandArray();
+        if (checkIsExpand()) {
+            expandArray();
+        }
 
     }
 
@@ -89,12 +93,14 @@ public class MyArrayList<T> implements MyList<T> {
         return sb.toString();
     }
 
+    private boolean checkIsExpand() {
+        return counter == array.length;
+    }
+
     private void expandArray() {
-        if (counter == array.length) {
-            Object[] temp = new Object[(int) (array.length * 1.5)];
-            System.arraycopy(array, 0, temp, 0, array.length);
-            array = temp;
-        }
+        Object[] temp = new Object[(int) (array.length * 1.5)];
+        System.arraycopy(array, 0, temp, 0, array.length);
+        array = temp;
     }
 
 }
