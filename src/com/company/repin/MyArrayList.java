@@ -23,9 +23,6 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(T t) {
-        if (array.length == 0) {
-            array = new Object[10];
-        }
         array[counter] = t;
         counter++;
         if (checkIsExpand()) {
@@ -39,8 +36,7 @@ public class MyArrayList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException();
         }
         if (index == counter) {
-            array[index] = t;
-            counter++;
+            add(t);
         } else {
             Object[] temp = new Object[array.length];
             System.arraycopy(array, 0, temp, 0, index);
